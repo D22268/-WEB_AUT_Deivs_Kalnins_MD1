@@ -3,6 +3,12 @@ import { SelectablePage } from '../pages/selectablePage';
 const selectablePage = new SelectablePage();
 
 describe('Selectable Grid Tests', () => {
+
+  beforeEach(() => {
+    // Block ad
+    cy.intercept('GET', '**googlesyndication.com/**', { statusCode: 204 });
+  });
+
   it('Selects even items and validates selection state', () => {
     selectablePage.visit();
     selectablePage.clickGridTab();
