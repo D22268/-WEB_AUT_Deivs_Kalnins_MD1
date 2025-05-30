@@ -6,8 +6,13 @@ describe('Selectable Grid Tests', () => {
 
   beforeEach(() => {
     // Block ad
-    cy.intercept('GET', '**googlesyndication.com/**', { statusCode: 204 });
-  });
+    Cypress.on('uncaught:exception', (err, runnable) => {
+  // Ignore errors from ad script
+  if (err.message.includes('Script error.') || err.message.includes('googlesyndication') || err.message.includes('stat-rock')) {
+    return false; // prevent Cypress from failing the test
+  }
+});
+
 
   it('Selects even items and validates selection state', () => {
     selectablePage.visit();
