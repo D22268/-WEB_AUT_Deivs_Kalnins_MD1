@@ -6,8 +6,10 @@ describe('Selectable Grid Tests', () => {
 
   beforeEach(() => {
     // Block ad
-    Cypress.on('uncaught:exception', (err, runnable) => {
-  // Ignore errors from ad script
+    cy.intercept('GET', '**googlesyndication.com/**', { statusCode: 204 });
+  });
+  Cypress.on('uncaught:exception', (err, runnable) => {
+  // Ignore errors from ad scripts or other 3rd-party code
   if (err.message.includes('Script error.') || err.message.includes('googlesyndication') || err.message.includes('stat-rock')) {
     return false; // prevent Cypress from failing the test
   }
