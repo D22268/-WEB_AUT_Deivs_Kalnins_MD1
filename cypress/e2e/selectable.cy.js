@@ -9,7 +9,7 @@ describe('Selectable Grid Tests', () => {
     cy.intercept('GET', '**googlesyndication.com/**', { statusCode: 204 });
   });
   Cypress.on('uncaught:exception', (err, runnable) => {
-  // Ignore errors from ad scripts or other 3rd-party code
+  // Ignore errors from ad
   if (err.message.includes('Script error.') || err.message.includes('googlesyndication') || err.message.includes('stat-rock')) {
     return false; // prevent Cypress from failing the test
   }
